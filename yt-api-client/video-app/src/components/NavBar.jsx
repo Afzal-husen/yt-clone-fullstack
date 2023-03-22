@@ -5,7 +5,7 @@ import { AccountCircleOutlined,
    SearchOutlined,
     VideoCallOutlined,
     LogoutOutlined } from "@mui/icons-material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector} from 'react-redux'
 import { Upload } from "./utils/allComponents.js"
 
@@ -63,6 +63,8 @@ const NavBar = ({handleSignOut}) => {
 
 const {currentUser} = useSelector(store => store.user)
 const [isOpen, setIsOpen] = useState(false)
+const [searchField, setSearchField] = useState("")
+const navigate = useNavigate();
 
 const handleOpenUpload = () => {
   setIsOpen(true);
@@ -76,8 +78,9 @@ const handleOpenUpload = () => {
             <InputField
              type="text"
             placeholder="Search..." 
+            onChange={(e) => setSearchField(e.target.value)}
             />
-            <SearchOutlined />
+            <SearchOutlined style={{cursor: "pointer"}} onClick={() => navigate(`/search?q=${searchField}`)} />
         </SearchContainer>
         { currentUser ?
         <>

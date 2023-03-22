@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { ThemeProvider } from "styled-components"
-import { Menu, NavBar, Home, Video, SignIn } from "./components/utils/allComponents"
+import { Menu, NavBar, Home, Video, SignIn, Search } from "./components/utils/allComponents"
 import { darkMode, lightMode } from './components/utils/theme'
 import { useState } from "react"
 import {
@@ -60,6 +60,7 @@ const handleSignOut = () => {
                 <Route path="/trending" element={<Home type="trending"/>} />
                 <Route path="/subscriptions" element={<Home type="sub"/>} />
                 <Route path="/video/:id" element={<Video />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/signin" element={<SignIn />} />
               </Routes>
             </Wrapper>

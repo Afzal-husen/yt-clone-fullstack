@@ -140,6 +140,10 @@ font-weight: 600;
 color: #fff;
 cursor: pointer;
 `
+const VideoFrame = styled.video`
+  width: 100%;
+  height: 400px;
+`
 
 
 
@@ -249,19 +253,24 @@ const handleDisLike = async () => {
   fetchComments();
  }, [videoId, dispatch])
 
+ useEffect(() => {
+    const addViews = async () => {
+      try {
+        await axios.put(`/videos/views/${videoId}`)
+      } catch (error) {
+        
+      }
+    }
+    addViews()
+ },[videoId])
 
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width={"100%"}
-            height="400"
-            src='https://www.youtube.com/embed/k3Vfj-e1Ma4'
-            title="YouTube video player"
-            >
-            
-          </iframe>
+          <VideoFrame controls autoPlay poster={currentVideo.thumbUrl}>
+            <source src={currentVideo.vidUrl} />
+          </VideoFrame>
         </VideoWrapper>
         <Title>
           {currentVideo.title}  

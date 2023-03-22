@@ -6,10 +6,10 @@ import { request } from "express";
 export const addVideo = async (req, res, next) => {
   const newVideo = await videoModel({userID: req.user.userID, ...req.body})
   try {
-    await newVideo.save();
-    res.status(200).json({newVideo})
+    const savedVideo = await newVideo.save();
+    res.status(200).json(savedVideo)
   } catch (error) {
-    next(customError(404, "user not found"))
+    next(error)
   }
 }
 
@@ -133,7 +133,7 @@ export const getBySearch = async (req, res, next) => {
   try {
     const searchQuery = req.query.q
     const videos = await videoModel.find({title: {$regex: searchQuery, $options: "i"}}).limit(20)
-    res.status(200).json({videos})
+    res.status(200).json(videos)
   } catch (error) {
     next(error)
   }

@@ -125,7 +125,7 @@ const Menu = ({darkTheme, setDarkTheme, handleSignOut}) => {
             Explore
           </Items>
         </Link>
-        <Link to={"/subscriptions"} style={{color: "inherit"}}>
+        <Link to={!currentUser ? "/signin" : "/subscriptions"} style={{color: "inherit"}}>
           <Items>
             <SubscriptionsOutlined />
             Subscriptions

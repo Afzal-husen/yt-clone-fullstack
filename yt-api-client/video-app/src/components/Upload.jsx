@@ -7,6 +7,9 @@ import {
     uploadBytesResumable,
     getDownloadURL
 } from "firebase/storage"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
+
 
 
 const Container = styled.div`
@@ -22,16 +25,16 @@ const Container = styled.div`
     color: ${({theme}) => theme.textColor};
 `
 const Wrapper = styled.div`
-    width: 600px;
-    height: 500px;
+    width: 500px;
     background-color: ${({theme}) => theme.bg};
     position: relative;
     box-shadow: 0 0 1px ${({theme}) => theme.bg};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     padding: 20px;
+    z-index: 10;
 `
 
 const CloseIcon = styled.div`
@@ -60,6 +63,7 @@ const Label = styled.label`
 const Title = styled.h1`
     text-align: center;
     color: ${({theme}) => theme.textColor};
+    margin: 0;
 `
 
 const Description = styled.textarea`
@@ -93,12 +97,14 @@ const Button = styled.button`
 
 
 const Upload = ({setIsOpen}) => {
+    const navigate = useNavigate()
     const [video, setVideo] = useState(undefined)
     const [image, setImage] = useState(undefined)
     const [videoPerc, setVideoPerc] = useState(0)
     const [imagePerc, setimagePerc] = useState(0)
     const [inputs, setInputs] = useState({})
     const [tags, setTags] = useState("")
+
     console.log(inputs)
 
     const handleChange = (e) => {
@@ -106,7 +112,6 @@ const Upload = ({setIsOpen}) => {
             const inputResult = {...prevValue, [e.target.name]: e.target.value}
             return inputResult
         })
-        console.log(inputs)
     };
 
     const handleTags = (e) => {
@@ -164,9 +169,12 @@ const Upload = ({setIsOpen}) => {
     };
 
     //on upload
-    const handleUpload = (e) => {
+    const handleUpload = async (e) => {
         e.preventDefault();
-        //todo
+        const res = await axios.post("/videos", {...inputs, tags});
+        console.log(res)
+        setIsOpen(false)
+        res.status === 200 && navigate(`/video/${res.data._id}`)
     }
 
     useEffect(() => {
@@ -184,7 +192,7 @@ const Upload = ({setIsOpen}) => {
             <Title>Upload a New Video</Title>
             <Label>video</Label>
             {videoPerc > 0 ? (
-                "Uploading:" + videoPerc
+                `Uploading:  ${videoPerc} %`
             ) : (
                 <Input
                     type="file"
@@ -202,7 +210,7 @@ const Upload = ({setIsOpen}) => {
                 rows={8}
                 type="text"
                 placeholder='Description...'
-                name='description'
+                name='desc'
                 onChange={handleChange}
              />
                  
@@ -214,7 +222,8 @@ const Upload = ({setIsOpen}) => {
             />
             <Label>Image</Label>
             {imagePerc > 0 ? (
-                "Uploading:" + imagePerc
+                `Uploading: ${imagePerc} %`
+
             ) : (
                 <Input
                     type="file"

@@ -8,4 +8,5 @@ export { default as Comment} from "../Comment";
 export { default as SignIn } from "../../pages/SignIn";
 export {default as Recommendation} from "../Recommendation"
 export {default as Upload} from "../Upload"
+export {default as Search} from "../../pages/Search"
 
