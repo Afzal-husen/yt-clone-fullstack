@@ -6,19 +6,21 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 
 const Container = styled.div`
-    width: display:  ${(props) => props.type === "sm" ? "100%" : "400px"};
-    height: ${(props) => props.type === "sm" ? "100px" : "300px"};;
-    // background-color: ${({theme}) => theme.wrapperBg}; 
-    margin: 10px;
+    width: ${(props) => props.type === "sm" ? "100%" : "320px"};
+    height: ${(props) => props.type === "sm" ? "100px" : "100%"};
+    margin-top: 30px;
     border-radius: 10px;
     cursor: pointer;
     display: ${(props) => props.type === "sm" && "flex"};
     gap: ${(props) => props.type === "sm" && "10px"};
+    box-sizing: border-box;
+    box-shadow: 0 0 1px white;
+    object-fit: contain;
     `
     
     const CardImg = styled.img`
     width: ${(props) => props.type === "sm" ? "150px" : "100%"};
-    height:  ${(props) => props.type === "sm" ? "100px" : "202px"};
+    height:  ${(props) => props.type === "sm" ? "100px" : "170px"};
     background-color: gray;
 `
 
@@ -26,6 +28,7 @@ const ChannelDetail = styled.div`
     display: flex;
     gap: 12px;
     margin-top: 10px;
+    padding: 20px 10px;
 `
 const ChannelImg = styled.img`
     width: 36px;

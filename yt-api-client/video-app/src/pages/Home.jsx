@@ -9,7 +9,8 @@ import axios from "axios"
 const Container = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 2rem;
     flex-wrap: wrap;
     color: white;
 `

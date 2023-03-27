@@ -7,16 +7,15 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  useNavigate,
 } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { logOut } from "./features/userSlice.js"
-import { clearPersist } from "./features/videoSlice"
 
 
 
 const Container = styled.div`
   display: flex;
+  min-height: 100vh;
 `
 
 const Main = styled.div`
@@ -36,8 +35,12 @@ const App = () => {
 
 const [ darkTheme, setDarkTheme ] = useState(true);
 const dispatch = useDispatch();
-const { currentUser } = useSelector((store) => store.user)
-
+const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+console.log(isSideBarOpen)
+const handleOpenSideBar = () => {
+  setIsSideBarOpen(!isSideBarOpen)
+}
+ 
 //signOut 
 const handleSignOut = () => {
   dispatch(logOut());
@@ -51,9 +54,9 @@ const handleSignOut = () => {
     <ThemeProvider theme={darkTheme ? darkMode : lightMode}>
       <Container>
         <BrowserRouter>
-          <Menu handleSignOut={handleSignOut} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
+          <Menu open={isSideBarOpen} handleSignOut={handleSignOut} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
           <Main>
-            <NavBar handleSignOut={handleSignOut} />
+            <NavBar handleOpenSideBar={handleOpenSideBar} handleSignOut={handleSignOut} />
             <Wrapper>
               <Routes>
                 <Route index element={<Home type="random" />} />

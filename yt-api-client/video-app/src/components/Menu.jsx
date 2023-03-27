@@ -18,9 +18,11 @@ import { Home,
      HelpOutlineOutlined,
      LightModeOutlined,
      AccountCircleOutlined,
-     LogoutOutlined
+     LogoutOutlined,
 } from "@mui/icons-material"
 import { useSelector } from 'react-redux'   
+import {device} from "../devices.js"
+
 
 
 
@@ -34,6 +36,17 @@ const Container = styled.div`
   top: 0;
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  @media only screen and ${device.mobileL} {
+    position: absolute;
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    top: 3rem;
+    // display: none;
+    left: ${(props) => props.open && "-100%"};
+    // left: -100%;
   }
 `
 
@@ -58,7 +71,7 @@ const Items = styled.div`
   border-radius: 10px;
 `
 
-const Logo = styled.div`
+export const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
@@ -71,7 +84,10 @@ const Logo = styled.div`
   position: sticky;
   top: 0;
   background-color: ${({theme}) => theme.bg};
+`
 
+export const LogoImg = styled.img`
+  
 `
 
 const Hr = styled.hr`
@@ -82,6 +98,9 @@ const Hr = styled.hr`
 export const SignInBtn = styled.div`
     font-size: 14px;
     font-weight: 500;
+     @media only screen and ${device.mobileL} {
+      display: none;
+     }
 `
 
 export const Button = styled.button`
@@ -96,22 +115,30 @@ export const Button = styled.button`
     cursor: pointer;
 `
 
+const LogoWrapper = styled.div`
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+`
 
 
-const Menu = ({darkTheme, setDarkTheme, handleSignOut}) => {
+
+const Menu = ({darkTheme, setDarkTheme, handleSignOut, open}) => {
 
   const {currentUser} = useSelector(store => store.user)
 
   return (
-    <Container>
-      <Link to={'/'}
-        style={{color: "inherit"}}
-      >
-        <Logo>
-          <img src={logo} alt="logo"  />
-          BestTube
-        </Logo>
-      </Link>
+    <Container open={open}>
+      <LogoWrapper>
+        <Link to={'/'}
+          style={{color: "inherit"}}
+        >
+          <Logo>
+            <LogoImg src={logo} alt="logo"  />
+            BestTube
+          </Logo>
+        </Link>
+      </LogoWrapper>
       <Wrapper> 
           <Link to={"/"} style={{color: "inherit"}}> 
           <Items>
