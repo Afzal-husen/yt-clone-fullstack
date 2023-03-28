@@ -36,7 +36,8 @@ const App = () => {
 const [ darkTheme, setDarkTheme ] = useState(true);
 const dispatch = useDispatch();
 const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-console.log(isSideBarOpen)
+
+//open/close sidebar in mobile view
 const handleOpenSideBar = () => {
   setIsSideBarOpen(!isSideBarOpen)
 }
@@ -54,7 +55,7 @@ const handleSignOut = () => {
     <ThemeProvider theme={darkTheme ? darkMode : lightMode}>
       <Container>
         <BrowserRouter>
-          <Menu open={isSideBarOpen} handleSignOut={handleSignOut} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
+          <Menu handleOpenSideBar={handleOpenSideBar} open={isSideBarOpen} handleSignOut={handleSignOut} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
           <Main>
             <NavBar handleOpenSideBar={handleOpenSideBar} handleSignOut={handleSignOut} />
             <Wrapper>

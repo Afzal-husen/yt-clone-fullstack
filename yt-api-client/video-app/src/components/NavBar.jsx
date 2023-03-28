@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { SignInBtn, Button, Logo, LogoImg } from "./Menu"
+import { SignInBtn, Button } from "./Menu"
 import { AccountCircleOutlined,
    SearchOutlined,
     VideoCallOutlined,
@@ -9,8 +9,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { useSelector} from 'react-redux'
 import { Upload } from "./utils/allComponents.js"
 import {device} from "../devices.js"
-import logo from "../img/logo.png"
-
 
 const Container =  styled.div`
   background-color: ${({theme}) => theme.bg};
@@ -63,7 +61,7 @@ const SearchContainer = styled.div`
   color: ${({theme}) => theme.textColor};
 
   @media only screen and ${device.mobileL} {
-    padding: 7px;
+    padding: 5px;
   }
 `
 
@@ -82,11 +80,15 @@ const UserImage = styled.img`
 `
 
 const Hamburger = styled.div`
-  width: 36px;
+display: none;
+@media only screen and ${device.mobileL} {
+  width: 30px;
   height: 36px;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: space-evenly;
+}
+
 `
 const Span = styled.span`
   width: 100%;
@@ -109,7 +111,7 @@ const handleOpenUpload = () => {
   return (
     <>
     <Container>
-      <Wrapper>
+      <Wrapper type="bg">
         <SearchContainer>
             <InputField
              type="text"
@@ -118,7 +120,7 @@ const handleOpenUpload = () => {
             />
             <SearchOutlined style={{cursor: "pointer"}} onClick={() => navigate(`/search?q=${searchField}`)} />
         </SearchContainer>
-        <Hamburger onClick={handleOpenSideBar}>
+        <Hamburger  onClick={handleOpenSideBar}>
           <Span></Span>
           <Span></Span>
           <Span></Span>
@@ -137,7 +139,7 @@ const handleOpenUpload = () => {
           </SignInBtn>
           </>
         :
-        <SignInBtn>
+        <SignInBtn type="sm">
           <Link
             to={"/Signin"}
           >

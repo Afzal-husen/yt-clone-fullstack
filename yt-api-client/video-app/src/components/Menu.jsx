@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from "../img/logo.png"
 import { Link } from "react-router-dom"
 import { Home,
    ExploreOutlined,
@@ -19,10 +18,10 @@ import { Home,
      LightModeOutlined,
      AccountCircleOutlined,
      LogoutOutlined,
+     YouTube
 } from "@mui/icons-material"
 import { useSelector } from 'react-redux'   
 import {device} from "../devices.js"
-
 
 
 
@@ -37,16 +36,14 @@ const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-
+  
   @media only screen and ${device.mobileL} {
     position: absolute;
     z-index: 5;
     width: 100vw;
     height: 100vh;
     top: 3rem;
-    // display: none;
     left: ${(props) => props.open && "-100%"};
-    // left: -100%;
   }
 `
 
@@ -54,7 +51,6 @@ const Wrapper = styled.div`
   padding: 15px 20px;
 
 `
-
 
 const Items = styled.div`
   display: flex;
@@ -76,18 +72,26 @@ export const Logo = styled.div`
   align-items: center;
   gap: 5px;
   font-weight: bold;
-  img {
-    width: 40px;
-    height: 30px;}
   padding: 20px 15px 10px 15px;
   cursor: pointer;
   position: sticky;
   top: 0;
   background-color: ${({theme}) => theme.bg};
+
+  @media and screen ${device.mobileL} {
+    width: ${(props) => props.size === "nav-sm" && "20px" }
+    height: ${(props) => props.size === "nav-sm" && "10px" }
+    color: white;
+  }
 `
 
 export const LogoImg = styled.img`
-  
+
+  @media and screen ${device.mobileL} {
+    // width: ${(props) => props.size === "nav-sm" && "20px" }
+    // height: ${(props) => props.size === "nav-sm" && "10px" }
+    font-size: ${(props) => props.size === "nav-sm" && "10px" }
+  }
 `
 
 const Hr = styled.hr`
@@ -99,7 +103,7 @@ export const SignInBtn = styled.div`
     font-size: 14px;
     font-weight: 500;
      @media only screen and ${device.mobileL} {
-      display: none;
+      display: ${(props) => props.type === "sm" && "none"};
      }
 `
 
@@ -115,55 +119,66 @@ export const Button = styled.button`
     cursor: pointer;
 `
 
-const LogoWrapper = styled.div`
+export const LogoWrapper = styled.div`
      display: flex;
      align-items: center;
      justify-content: space-between;
+     position: sticky;
+     top: 0;
+     color: ${({theme}) => theme.textColor};
+     background-color: ${({theme}) => theme.bg};
+     display: ${(props) => props.type === "bg" && "none"};
+
+     @media only screen and ${device.mobileL} {
+      display: ${(props) => props.type === "sm" && "none"};
+      display: ${(props) => props.type === "bg" && "inline-flex"};
+     }
 `
 
 
-
-const Menu = ({darkTheme, setDarkTheme, handleSignOut, open}) => {
+const Menu = ({darkTheme, setDarkTheme, handleSignOut, open, handleOpenSideBar}) => {
 
   const {currentUser} = useSelector(store => store.user)
 
   return (
     <Container open={open}>
-      <LogoWrapper>
+      <LogoWrapper type="sm" onClick={handleOpenSideBar}>
         <Link to={'/'}
           style={{color: "inherit"}}
         >
-          <Logo>
-            <LogoImg src={logo} alt="logo"  />
-            BestTube
+          <Logo type="sm" >
+            <YouTube style={{color: "red",
+             fontSize: "50px",
+              }}/>
+              YT
           </Logo>
         </Link>
       </LogoWrapper>
       <Wrapper> 
           <Link to={"/"} style={{color: "inherit"}}> 
-          <Items>
+          <Items onClick={handleOpenSideBar}> 
             <Home />
             Home
           </Items>
         </Link>
         <Link to={"/trending"} style={{color: "inherit"}}>
-          <Items>
+          <Items onClick={handleOpenSideBar}>
             <ExploreOutlined />
             Explore
           </Items>
         </Link>
         <Link to={!currentUser ? "/signin" : "/subscriptions"} style={{color: "inherit"}}>
-          <Items>
+          <Items onClick={handleOpenSideBar}>
             <SubscriptionsOutlined />
             Subscriptions
           </Items>
         </Link>
         <Hr />
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <VideoLibraryOutlined />
           Library
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <HistoryOutlined />
           History
         </Items>
@@ -171,7 +186,7 @@ const Menu = ({darkTheme, setDarkTheme, handleSignOut, open}) => {
         {     //jsx element must have parent element
         !currentUser &&
         <>    
-        <SignInBtn>
+        <SignInBtn onClick={handleOpenSideBar}>
           <p>Sign in to like videos, comment, and subscribe.</p>
           <Link
             to={"/signin"}
@@ -184,40 +199,40 @@ const Menu = ({darkTheme, setDarkTheme, handleSignOut, open}) => {
         <Hr />
       </>
       }
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <LibraryMusicOutlined />
           Music
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <SportsSoccerOutlined />
           Sports
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <SportsEsportsOutlined />
           Gaming
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <MovieCreationOutlined />
           Movies
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <NewspaperOutlined />
           News
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <LiveTvOutlined />
           Live
         </Items>
         <Hr />
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <SettingsOutlined />
           Settings
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <FlagOutlined />
           Report
         </Items>
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <HelpOutlineOutlined />
           Help
         </Items>
@@ -226,7 +241,7 @@ const Menu = ({darkTheme, setDarkTheme, handleSignOut, open}) => {
           {darkTheme? "LightMode" : "DarkMode"}
         </Items>
         {currentUser && 
-        <Items>
+        <Items onClick={handleOpenSideBar}>
           <SignInBtn>
             <Button onClick={handleSignOut}>
             <LogoutOutlined />
