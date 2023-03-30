@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 
 const Main = styled.div`
-  flex: 7;
+  flex: 6;
 `
 
 const Wrapper = styled.div`
@@ -57,7 +57,7 @@ const handleSignOut = () => {
         <BrowserRouter>
           <Menu handleOpenSideBar={handleOpenSideBar} open={isSideBarOpen} handleSignOut={handleSignOut} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
           <Main>
-            <NavBar handleOpenSideBar={handleOpenSideBar} handleSignOut={handleSignOut} />
+            <NavBar darkTheme={darkTheme} open={isSideBarOpen} handleOpenSideBar={handleOpenSideBar} handleSignOut={handleSignOut} />
             <Wrapper>
               <Routes>
                 <Route index element={<Home type="random" />} />
