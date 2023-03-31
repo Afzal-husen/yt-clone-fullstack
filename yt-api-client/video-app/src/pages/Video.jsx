@@ -5,11 +5,9 @@ import {
   ThumbUpAlt,
   ThumbDownOutlined,
   ThumbDownAlt,
-  ReplyOutlined,
-  LibraryAddOutlined,
-  ContactSupportOutlined,
-  ThreeMpRounded,
 } from "@mui/icons-material";
+import { device } from "../devices.js";
+
 
 import {
   Comments,
@@ -29,7 +27,6 @@ import {
   like,
   disLike,
 } from "../features/videoSlice.js";
-import { async } from "@firebase/util";
 import { subscription } from "../features/userSlice.js";
 import { fetchComment } from "../features/commentSlice.js";
 
@@ -38,6 +35,7 @@ const Container = styled.div`
   display: flex;
   gap: 24px;
   padding: 30px;
+  // height: 100vh;
 `;
 
 const Content = styled.div`
@@ -138,6 +136,11 @@ const SubscribeButton = styled.button`
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+
+  @media only screen and ${device.mobileL}{
+  width: 120px;
+  height: 40px;
+  }
 `;
 const VideoFrame = styled.video`
   width: 100%;
@@ -271,7 +274,7 @@ const Video = () => {
               ) : (
                 <ThumbUpOutlined />
               )}{" "}
-              {currentVideo.Liked.length} Likes
+              {currentVideo.Liked.length} 
             </Button>
             <Button onClick={handleDisLike}>
               {currentVideo.disLiked.includes(currentUser._id) ? (
@@ -280,14 +283,6 @@ const Video = () => {
                 <ThumbDownOutlined />
               )}
               Dislike
-            </Button>
-            <Button>
-              <ReplyOutlined />
-              Share
-            </Button>
-            <Button>
-              <LibraryAddOutlined />
-              Save
             </Button>
           </Buttons>
         </Details>
@@ -305,9 +300,9 @@ const Video = () => {
           </ChannelInfo>
           <SubscribeContainer>
             <SubscribeButton onClick={handleSubscription}>
-              {currentUser.subscribedChannels.includes(currentUser._id)
-                ? "UnSubscribe"
-                : "Subscribe"}
+              {!currentUser.subscribedChannels.includes(currentUser._id)
+                ? "subscribe"
+                : "unsubscribe"}
             </SubscribeButton>
           </SubscribeContainer>
         </Channel>

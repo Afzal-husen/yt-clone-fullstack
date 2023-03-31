@@ -38,6 +38,10 @@ const Wrapper = styled.div`
     gap: 1.5rem;
     justify-content: space-between;
   }
+
+  @media only screen and ${device.ipad} and ${device.tabletm} {
+    justify-content: space-between;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -102,6 +106,14 @@ const Hamburger = styled.div`
     justify-content: space-evenly;
   }
 
+  @media only screen and ${device.ipad} and ${device.tabletm} {
+    width: 30px;
+    height: 36px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
   @media only screen and ${device.tablet} {
     width: 30px;
     height: 36px;
@@ -121,7 +133,6 @@ const NavBar = ({
   handleSignOut,
   handleOpenSideBar,
   isSideBarOpen,
-  darkTheme,
 }) => {
   const { currentUser } = useSelector((store) => store.user);
   const [isOpen, setIsOpen] = useState(false);
@@ -136,8 +147,8 @@ const NavBar = ({
     <>
       <Container>
         <Wrapper type="bg">
-          <Hamburger type={isSideBarOpen} onClick={handleOpenSideBar}>
-            <Span type={!isSideBarOpen}></Span>
+          <Hamburger type="md" onClick={handleOpenSideBar}>
+            <Span></Span>
             <Span></Span>
             <Span></Span>
           </Hamburger>

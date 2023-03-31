@@ -55,7 +55,19 @@ const Container = styled.div`
   }
 
   @media only screen and ${device.laptop} {
-    width: 50vw;
+    // padding-right: 150px;
+    // display: none;
+    position: absolue;
+  }
+
+  @media only screen and ${device.ipad} and ${device.tabletm}{
+    position: absolute;
+    z-index: 5;
+    height: 100vh;
+    top: 3.5rem;
+    overflow: auto;
+    width: 100%;
+    left: ${(props) => props.open && "-100%"};
   }
 `;
 

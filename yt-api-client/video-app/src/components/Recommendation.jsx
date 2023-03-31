@@ -2,10 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Card } from "./utils/allComponents.js";
+import { device } from "../devices.js";
 
 const Container = styled.div`
   flex: 3;
   height: 100vh;
+
+  @media only screen and ${device.adjustm} {
+      display:none;
+    }
+
+  @media only screen and ${device.tablet} and ${device.adjust}{
+      display:none;
+  }
 `;
 
 const Recommendation = ({ tags }) => {
